@@ -10,8 +10,31 @@ const SmurfList = props => {
 
     return (
         <>
-        <div>Test</div>
-        <div>test2</div>
+        <button onClick={ () => props.fetchSmurfs()}>Show Smurfs</button>
+
+            {/* {props.smurfs.map(smurf => {
+                return (
+                    <div>
+                        {smurf.name}<br/>
+                        {smurf.age}<br/>
+                        {smurf.height}
+                    </div>
+                )
+             
+            })} */}
+
+            
+            {props.smurfs.map(smurf => {
+                    return (
+                        <div key={smurf.id}>
+                            {smurf.name}<br/>
+                            {smurf.age}<br/>
+                            {smurf.height}
+                        </div>
+                    );
+                    })}
+            
+
         </>
     )
 
@@ -21,7 +44,7 @@ const SmurfList = props => {
 const mapStateToProps = state => {
     return {
       isFetching: state.isFetching,
-      cities: state.cities,
+      smurfs: state.smurfs,
       error: state.error
     };
   };

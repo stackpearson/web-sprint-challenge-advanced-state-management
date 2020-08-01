@@ -21,7 +21,7 @@ import {
         return {
           ...state,
           isFetching: false,
-          cities: action.payload,
+          smurfs: action.payload,
           error: ""
         };
       case FETCHING_SMURFS_ERROR:

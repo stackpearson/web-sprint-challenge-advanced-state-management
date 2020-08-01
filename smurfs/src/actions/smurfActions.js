@@ -13,7 +13,7 @@ export const fetchSmurfs = () => dispatch => {
             console.log('smurf api call', res);
             dispatch({
               type: FETCHING_SMURFS_SUCCESS,
-              payload: res
+              payload: res.data
             });
           })
           .catch(err => {
