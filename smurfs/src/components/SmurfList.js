@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { fetchSmurfs } from '../actions/smurfActions';
-import AddSmurf from './AddSmurf';
+// import AddSmurf from './AddSmurf';
+
 
 const SmurfList = props => {
     if (props.isFetching) {
@@ -15,14 +16,14 @@ const SmurfList = props => {
             
             {props.smurfs.map(smurf => {
                     return (
-                        <div key={smurf.id}>
-                            {smurf.name}<br/>
-                            {smurf.age}<br/>
-                            {smurf.height}
+                        <div className='smurf-container' key={smurf.id}>
+                            <div>Name: {smurf.name}</div>
+                            <div>Age: {smurf.age}</div>
+                            <div>Height: {smurf.height}</div>
                         </div>
                     );
                     })}
-                <AddSmurf />
+                {/* <AddSmurf /> */}
         </>
     )
 

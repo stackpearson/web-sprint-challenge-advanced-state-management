@@ -1,103 +1,64 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-import * as yup from 'yup';
+import React, {useState} from 'react';
+import { connect } from 'react-redux';
+import {postSmurfs} from '../actions/smurfActions';
 
-function AddSmurf() {
-    const [post, setPost] = useState([])
+const AddSmurf = props => {
 
-    const [formState, setFormState] = useState({
+    const [smurf, setSmurf] = useState({
         name: '',
         age: '',
         height: ''
     })
 
-    const [errors, setErrors]  = useState({
-        name: '',
-        age: '',
-        height: ''
-    })
-
-    // useEffect (() => {
-    //     formSchema.isValid(formState)
-    // }, [formState])
-
-    // const formSchema = yup.object().shape({
-    //     name: yup.string().required('Please enter a name'),
-    //     age: yup.string().required('Please enter an age'),
-    //     height: yup.string().required('Please enter a height')
-    // })
-
-    const submitForm = event => {
-        event.preventDefault();
-
-        axios
-            .post('http://localhost:3333/smurfs', formState)
-            .then(res => {
-                console.log('post response', res)
-                console.log(formState)
-                setPost(res.data)
-
-                setFormState ({
-                    name: '',
-                    age: '',
-                    height: ''
-                })
-            })
-            .catch (error => console.log('failure to post'))
+    const changeHandler = e => {
+        setSmurf({...smurf, [e.target.name]: e.target.value})
     };
 
-    // const validateChange = event => {
-    //     yup.reach(formSchema, event.target.name).validate(event.target.value).then(inputIsValid => {
-    //         setErrors({
-    //            ...errors,
-    //            [event.target.name]: ''
-    //         })
-    //     })  .catch(error => {
-    //         setErrors({
-    //             ...errors,
-    //             [event.target.name]: error.errors[0]
-    //         })
-    //     })
-    // }
-
-    const inputChange = event => {
-        event.persist();
-        console.log('input change', event.target.value)
-        const newFormData = {
-            ...formState,
-            [event.target.name] : event.target.value
-        }
-
-        setFormState(newFormData);
-    };
+    const submitChanges = e => {
+        e.preventDefault();
+        props.postSmurfs(smurf)
+    }
 
     return (
         <>
    
+<div className='form-container'>
 
-                
-    <form onSubmit={submitForm}>
-    <label htmlFor='Name'>
-        Name:
-        <input value={formState.name} name='name' type='text' placeholder='enter new smurf name' onChange={inputChange} />
-        {/* {errors.name.length > 0 ? <p className='error'>{errors.name}</p> : null} */}
-    </label>
-    <label htmlFor='Age'>
-        Age:
-        <input value={formState.age} name='age' id='age' type='text' placeholder='enter new smurf age' onChange={inputChange} />
-        {/* {errors.age.length > 0 ? <p className='error'>{errors.age}</p> : null} */}
-    </label>
-    <label htmlFor='Height'>
-        Height:
-        <input value={formState.height} name='height' id='height' type='text' placeholder='enter new smurf height' onChange={inputChange} />
-        {/* {errors.height.length > 0 ? <p className='error'>{errors.height}</p> : null} */}
-    </label>  
-    <button type='submit'>Add Smurf</button>                      
-</form>
+    <h2>Help Us Collect Smurf Info!</h2>  
+
+    <form className='smurf-form' onSubmit={submitChanges}>
+        <label htmlFor='Name'>
+            Name:
+            <input value={props.name} name='name' type='text' placeholder='enter new smurf name' onChange={changeHandler} />
+        </label>
+        <label htmlFor='Age'>
+            Age: &nbsp; &nbsp; 
+            <input value={props.age} name='age' id='age' type='text' placeholder='enter new smurf age' onChange={changeHandler} />
+        </label>
+        <label htmlFor='Height'>
+            Height:
+            <input value={props.height} name='height' id='height' type='text' placeholder='enter new smurf height' onChange={changeHandler} />
+        </label>  
+        <button className='submit-button' type='submit'>Add Smurf</button>                      
+    </form>
+
+</div>
+
 
 </>
  )
 
 }
 
-export default AddSmurf;
+const mapStateToProps = state => {
+    return {
+        smurfs: state.smurfs,
+        isPosting: state.isPosting,
+        error: state.error
+    };
+  };
+  
+  export default connect(
+    mapStateToProps,
+    {postSmurfs}
+  )(AddSmurf);
