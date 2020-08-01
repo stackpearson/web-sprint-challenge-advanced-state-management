@@ -2,27 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { fetchSmurfs } from '../actions/smurfActions';
+import AddSmurf from './AddSmurf';
 
 const SmurfList = props => {
-    // if (props.isFetching) {
-    //     return <div>**Just a moment while we invite smurfs to the party**</div>
-    // }
+    if (props.isFetching) {
+        return <div>**Just a moment while we invite smurfs to the party**</div>
+    }
 
     return (
         <>
         <button onClick={ () => props.fetchSmurfs()}>Show Smurfs</button>
-
-            {/* {props.smurfs.map(smurf => {
-                return (
-                    <div>
-                        {smurf.name}<br/>
-                        {smurf.age}<br/>
-                        {smurf.height}
-                    </div>
-                )
-             
-            })} */}
-
             
             {props.smurfs.map(smurf => {
                     return (
@@ -33,8 +22,7 @@ const SmurfList = props => {
                         </div>
                     );
                     })}
-            
-
+                <AddSmurf />
         </>
     )
 
