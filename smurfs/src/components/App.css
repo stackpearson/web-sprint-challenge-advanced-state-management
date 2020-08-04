@@ -1,3 +1,61 @@
 .App {
   text-align: center;
 }
+
+html {
+  background-color: #224de3;
+}
+
+.form-container {
+  border: 2px solid pink;
+  border-radius: 10px;
+  width: 350px;
+  margin: 0 auto;
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+.smurf-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid pink;
+  padding: 5px;
+  width: 250px;
+  margin: 0 auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 700;
+  color: pink;
+}
+
+.smurf-container:nth-child(odd) {
+  background-color: pink;
+  border: 1px solid black;
+  color: black;
+}
+
+
+.smurf-form {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+input {
+  margin: 5px;
+  text-align: center;
+}
+
+label {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.submit-button {
+  width: 300px;
+  margin: 0 auto;
+}
+
